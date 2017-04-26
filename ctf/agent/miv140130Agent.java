@@ -1740,7 +1740,7 @@ public class miv140130Agent extends Agent {
 
     public void addImmediateObstacles(AgentEnvironment inEnvironment) {
 
-        //obstList obstacle nearby
+        // obstList obstacle nearby
         if(pawn.location.y == 0){
             obstacleNorth = inEnvironment.isObstacleNorthImmediate();
         }
