@@ -1175,67 +1175,69 @@ public class miv140130Agent extends Agent {
             return;
         }// end if
 
-        /// obstacle in the east and currect objective is east or west,
+        // obstacle in the east and currect objective is east or west
         if(!isEast() && (landGoal.assignedDirection == direction.EAST || landGoal.assignedDirection == direction.WEST || landGoal.assignedDirection == direction.SOUTHWEST || landGoal.assignedDirection == direction.NORTHWEST)){
 
             direction notEast;
-            if(pawn.hasFlag)
+            if(pawn.hasFlag) // prioritize commonly visited spaces
                 notEast = getRandomDirection(direction.SOUTH, direction.NORTH, direction.WEST);
-            else
-                notEast = getLowestVisitedDirection(direction.SOUTH, direction.NORTH, direction.WEST);//if I don't have the flag, prefer less visited squares
+            else // prioritize less visited spaces
+                notEast = getLowestVisitedDirection(direction.SOUTH, direction.NORTH, direction.WEST);
 
+            // keep moving north
             if(notEast == direction.NORTH){
                 pawn.addDirection(direction.NORTH);
                 return;
             }// end inner if
 
+            // keep moving south
             if(notEast == direction.SOUTH) {
                 pawn.addDirection(direction.SOUTH);
                 return;
             }// end inner if
 
+            // keep moving west
             if(notEast == direction.WEST) {
                 pawn.addDirection(direction.WEST);
                 return;
             }// end inner if
         }// end outer if
 
-        //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL //WEST WALL
-        //if obstWest and objective is south or southwest, keep going south until obstSouth or !obstWest
-        
+        // obstacle in the west and currect objective is south or southwest              
         if(!isWest() && (landGoal.assignedDirection == direction.SOUTH || landGoal.assignedDirection == direction.SOUTHWEST)){
             pawn.addDirection(direction.SOUTH);
             return;
         }// end if
 
-        //if obstWest and objective is north or northwest, keep going north until obstNorth or !obstWest
+        // obstacle in the west and currect objective is north or northwest
         if(!isWest() && (landGoal.assignedDirection == direction.NORTH || landGoal.assignedDirection == direction.NORTHWEST)){
             pawn.addDirection(direction.NORTH);
             return;
         }// end if
 
-        //if obstWest and objective is west,
+        // obstacle in the west and currect objective is west or east
         if(!isWest() && (landGoal.assignedDirection == direction.WEST || landGoal.assignedDirection == direction.EAST || landGoal.assignedDirection == direction.SOUTHEAST || landGoal.assignedDirection == direction.NORTHEAST)){
 
             direction notWest;
-            if(pawn.hasFlag)
+            if(pawn.hasFlag) // prioritize commonly visited spaces
                 notWest = getRandomDirection(direction.SOUTH, direction.NORTH, direction.EAST);
-            else
-                notWest = getLowestVisitedDirection(direction.SOUTH, direction.NORTH, direction.EAST); //if I don't have the flag, prefer less visited squares
-            
-            //if last moveInThatDirection was moveNorth keep going north until !obstWest or obstNorth
+            else // prioritize less visited spaces 
+                notWest = getLowestVisitedDirection(direction.SOUTH, direction.NORTH, direction.EAST); 
+
+            // keep moving north
             if(notWest == direction.NORTH) {
                 pawn.addDirection(direction.NORTH);
                 return;
             }// end inner if
 
-            //if last moveInThatDirection was moveSouth keep going south until !obstWest or obstSouth
+            // keep moving south
             if(notWest == direction.SOUTH) {
                 System.out.println("agent " + pawn.name + pawn.idNum + " decided to go " + getDirectionName(direction.SOUTH) + " around west wall");
                 pawn.addDirection(direction.SOUTH);
                 return;
             }// end inner if
 
+            // keep moving east
             if(notWest == direction.EAST) {
                 System.out.println("agent " + pawn.name + pawn.idNum + " decided to go " + getDirectionName(direction.EAST) + " around west wall");
                 pawn.addDirection(direction.EAST);
@@ -1243,14 +1245,13 @@ public class miv140130Agent extends Agent {
             }// end inner if
         }// end outer if
 
-        //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL //NORTH WALL
-        //if obstNorth and objective is east or northeast, keep going east until obstEast or !obstNorth
+        // obstacle in the north and currect objective is east or northeast
         if(!isNorth() && (landGoal.assignedDirection == direction.EAST || landGoal.assignedDirection == direction.NORTHEAST)){
             pawn.addDirection(direction.EAST);
             return;
         }// end if
 
-        //if obstNorth and objective is west or northwest, keep going west until obstWest or !obstNorth
+        // obstacle in the east and currect objective is west or northwest
         if(!isNorth() && (landGoal.assignedDirection == direction.WEST || landGoal.assignedDirection == direction.NORTHWEST)){
             pawn.addDirection(direction.WEST);
             return;
@@ -1260,63 +1261,63 @@ public class miv140130Agent extends Agent {
         if(!isNorth() && (landGoal.assignedDirection == direction.NORTH || landGoal.assignedDirection == direction.SOUTH || landGoal.assignedDirection == direction.SOUTHWEST || landGoal.assignedDirection == direction.SOUTHEAST)){
 
             direction notNorth;
-            if(pawn.hasFlag)
+            if(pawn.hasFlag) // prioritize commonly visited spaces
                 notNorth = getRandomDirection(direction.EAST, direction.WEST, direction.SOUTH);
-            else
-                notNorth = getLowestVisitedDirection(direction.EAST, direction.WEST, direction.SOUTH);	//if I don't have the flag, prefer less visited squares
+            else // prioritize less visited spaces
+                notNorth = getLowestVisitedDirection(direction.EAST, direction.WEST, direction.SOUTH);	
             
-            //if last moveInThatDirection was moveEast keep going east until !obstNorth or obstEast
+            // keep moving east
             if(notNorth == direction.EAST) {
                 pawn.addDirection(direction.EAST);
                 return;
             } // end inner if
 
-            //if last moveInThatDirection was moveWest keep going west until !obstNorth or obstWest
+            // keep moving west
             if(notNorth == direction.WEST) {
                 pawn.addDirection(direction.WEST);
                 return;
             } // end inner if
 
+            // keep moving south
             if(notNorth == direction.SOUTH) {
                 pawn.addDirection(direction.SOUTH);
                 return;
             } // end inner if
         } // end outer if
 
-        //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL //SOUTH WALL
-        //if obstSouth and objective is east or southeast, keep going east until obstEast or !obstSouth
+        // obstacle in the south and currect objective is east or southeast
         if(!isSouth() && (landGoal.assignedDirection == direction.EAST || landGoal.assignedDirection == direction.SOUTHEAST)){
             pawn.addDirection(direction.EAST);
             return;
         }// end if
 
-        //if obstSouth and objective is west or southwest, keep going west until obstWest or !obstSouth
+        // obstacle in the south and currect objective is west or southwest
         if(!isSouth() && (landGoal.assignedDirection == direction.WEST || landGoal.assignedDirection == direction.SOUTHWEST)){
             pawn.addDirection(direction.WEST);
             return;
         }// end if
 
-        //if obstSouth and objective is south,
+        // obstacle in the south and currect objective is northeast or northwest
         if(!isSouth() && (landGoal.assignedDirection == direction.SOUTH || landGoal.assignedDirection == direction.NORTH || landGoal.assignedDirection == direction.NORTHEAST || landGoal.assignedDirection == direction.NORTHWEST)){
             direction notSouth;
-            if(pawn.hasFlag)
+            if(pawn.hasFlag) // prioritize commonly visited spaces
                 notSouth = getRandomDirection(direction.EAST, direction.WEST, direction.NORTH);
-            else
-                notSouth = getLowestVisitedDirection(direction.EAST, direction.WEST, direction.NORTH); //if I don't have the flag, prefer less visited squares
-            
+            else // prioritize less visited spaces
+                notSouth = getLowestVisitedDirection(direction.EAST, direction.WEST, direction.NORTH); 
 
-            //if last moveInThatDirection was moveEast keep going east until !obstSouth or obstEast
+            // keep moving east
             if(notSouth == direction.EAST) {
                 pawn.addDirection(direction.EAST);
                 return;
             }// end inner if
 
-            //if last moveInThatDirection was moveWest keep going west until !obstSouth or obstWest
+            // keep moving west
             if(notSouth == direction.WEST) {
                 pawn.addDirection(direction.WEST);
                 return;
             }// end inner if
 
+            // keep moving south
             if(notSouth == direction.NORTH) {
                 pawn.addDirection(direction.NORTH);
                 return;
@@ -1342,28 +1343,28 @@ public class miv140130Agent extends Agent {
         if(isSpawnPoint()){
             if(pawn.directionList.size() != 0)
                 pawn.directionList.clear();
+
             pawn.removeObjective();
             return getNextTask(landGoal);
         }// end if
 
-        //case where we are blocked on three sides, there is only one way to go
+        // move in the only unblocked direction
         if(isBlockedThreeWays()){
             pawn.removeObjective();
             pawn.removeDirection();
             return moveInThatDirection(getNotBlockedDirection());
         }// end if
 
-        //if this is our first encounter with this obstacle, we choose a direction to go
+        // first time at specific obstacle
         if(pawn.directionList.size() == 0)
             avoidObstacles(landGoal);
         
-        //other wise we keep going in that direction until one of the obstList surrounding us is gone
         direction currentDir = pawn.getDirection();
 
         if(checkForObstacles())
             removeObstacles();
         
-        //if there are actually no obstList around us, go back to getNextTask function
+        // no obstacles, call getNextTask
         if(pawn.obstList.size() == 0){
             pawn.removeDirection();
             pawn.removeObjective();
@@ -1396,76 +1397,7 @@ public class miv140130Agent extends Agent {
             pawn.obstList.remove(obstListToRemove.get(j));
     }// end for
 
-   /* public int defend(Landmark place){
-        determineDefenseWallCenterPositionAndDirection();
-
-        int task = doNothing;
-
-        if(inDefendingWallArea()){
-            System.out.println("create wall");
-            task = createDefendingWall();
-        }else{
-            System.out.println("getNextTask wall center which is " + getDirectionName(defenseWallCenter.assignedDirection));
-            task = getNextTask(defenseWallCenter);
-        }
-
-        return task;
-    }
-
-    public boolean inDefendingWallArea(){
-        return (pawn.location.isSamePositions(defenseWallCenter.location) ||
-                pawn.location.isSamePositions(defenseWallCenter.location.moveNorthOne()) ||
-                pawn.location.isSamePositions(defenseWallCenter.location.moveSouthOne()));
-    }*/
-
-   /* public int createDefendingWall(){
-
-        boolean mineNorth = minesList.contains(pawn.location.moveNorthOne());
-        boolean mineSouth = minesList.contains(pawn.location.moveSouthOne());
-        boolean mineEast = minesList.contains(pawn.location.moveEastOne());
-        boolean mineWest = minesList.contains(pawn.location.moveWestOne());
-        boolean onMine = minesList.contains(pawn.location);
-
-        boolean moveNorthOne = pawn.location.isSamePositions(defenseWallCenter.location.moveNorthOne());
-        boolean moveSouthOne = pawn.location.isSamePositions(defenseWallCenter.location.moveSouthOne());
-        boolean onCenter = pawn.location.isSamePositions(defenseWallCenter.location);
-
-        int task = doNothing;
-
-        //if I am on the wall center and there's not a mine or an obstacle south, moveInThatDirection south
-        if(onCenter && !mineSouth && !obstacleSouth) {
-            task = moveSouth();
-
-            //If I am one south of the center and I am not standing on a mine, plant one
-        }else if(moveSouthOne && !onMine) {
-            task = plantMine();
-
-            //if I am one south of the center and I am standing on a mine, moveInThatDirection north
-        }else if(moveSouthOne && onMine){
-            task = moveNorth();
-
-            //if there is not a mine on defense wall center, put one there
-        }else if (onCenter && !onMine){
-            task = plantMine();
-
-            //if I am on the defense wall center and I am standing on a mine, moveInThatDirection north
-        }else if(pawn.location.isSamePositions(defenseWallCenter.location) && onMine){
-            task = moveNorth();
-
-            //if I am one north of the defense wall center and I am not standing on a mine, plant one
-        }else if(moveNorthOne && !onMine){
-            task = plantMine();
-
-            //if I am one north of the defense wall center and I am standing on a mine, getNextTask enemy base because I have built the little wall
-        }else if(moveNorthOne && onMine){
-            pawn.setNewObjective(objective.SEEK_ENEMY_BASE);
-            task = getNextTask(enemyBase);
-        }
-        return task;
-    }*/
-
-    //MAP FUNCTIONS//MAP FUNCTIONS //MAP FUNCTIONS //MAP FUNCTIONS //MAP FUNCTIONS //MAP FUNCTIONS //MAP FUNCTIONS //MAP FUNCTIONS
-
+   //********************** MAP *********************************/
     public ArrayList<direction> getLowestVistiedImmediateCells(){
         ArrayList<direction> visitedList = new ArrayList<direction>();		// Keeps track of the least visited 
 
@@ -1640,6 +1572,7 @@ public class miv140130Agent extends Agent {
             case 3:
                 return c;
         }// end switch
+
         return assignedDirection;
     }// getRandomDirection (3)
 
@@ -1716,117 +1649,9 @@ public class miv140130Agent extends Agent {
         return openDir;
     }// end addOpenDirection
 
-    //public boolean directionsOkay(direction aDir, direction bDir){
-    //    return (checkValidMove(aDir) && checkValidMove(bDir));
-    //}
-
-    /*public boolean oscillatingMoveCheck(){
-        if(pawn.visitedCellList.size() < 3){
-            return false;
-        }else{
-            return (getXPositionsBack(2).isSamePositions(pawn.location));
-        }
-    }*/
-
-    /*public boolean smallCircleCheck(){
-        boolean hasCircle = false;
-
-        if(pawn.visitedCellList.size() < 5){
-            return false;
-        }
-
-        Position fourPositionsBack = getXPositionsBack(4);
-        if(fourPositionsBack == pawn.location)
-            hasCircle = true;
-        
-        return hasCircle;
-    }*/
-
-    //public Position getLastPosition(){
-      //  return pawn.visitedCellList.get(pawn.visitedCellList.size() - 2);
-    //}
-
-   /* public Position getXPositionsBack(Integer x){
-        Position xPosback = pawn.visitedCellList.get(pawn.visitedCellList.size() - (x + 1));
-        return xPosback;
-    }*/
-
     public int getEndMove(){
         return pawn.movesList.get(pawn.movesList.size() - 2);
     }// end getEndMove
-
-    //public int getXMovesBack(Integer x){
-    //    return pawn.movesList.get(pawn.movesList.size() - (x + 1));
-    //}
-
-    /*public direction getOppositeDirection(direction assignedDirection){
-        direction opposite = direction.DONOTHING;
-        switch(assignedDirection){
-            case NORTH:
-                opposite = direction.SOUTH;
-                break;
-            case NORTHEAST:
-                opposite = direction.SOUTHWEST;
-                break;
-            case EAST:
-                opposite = direction.WEST;
-                break;
-            case SOUTHEAST:
-                opposite = direction.NORTHWEST;
-                break;
-            case SOUTH:
-                opposite = direction.NORTH;
-                break;
-            case SOUTHWEST:
-                opposite = direction.NORTHEAST;
-                break;
-            case WEST:
-                opposite = direction.EAST;
-                break;
-            case NORTHWEST:
-                opposite = direction.SOUTHEAST;
-                break;
-            default:
-            	break;
-        }
-        return opposite;
-    }*/
-
-    /*public int preferSameDirectionAsPreviousMove(){
-        if(getEndMove() == moveNorth && isNorth())
-            return moveNorth();
-        else if(getEndMove() == moveSouth && isSouth())
-            return moveSouth();
-        else if(getEndMove() == moveEast && isEast())
-            return moveEast();
-        else if(getEndMove() == moveWest && isWest())
-            return moveWest();
-        else
-            return doNothing;
-        
-    }*/
-
-    /*public int preferOppositeDirectionOfPreviousMove(){
-        if(getEndMove() == moveNorth && isSouth()){
-            return moveSouth();
-        }else if(getEndMove() == moveSouth && isNorth()){
-            return moveNorth();
-        }else if (getEndMove() == moveEast && isWest()){
-            return moveWest();
-        }else if (getEndMove() == moveWest && isEast()){
-            return moveEast();
-        }else{
-            return doNothing;
-        }
-    }*/
-
-    /*public int plantMine(){
-        updatePosition(pawn.location, pawn.location);  //I'm not moving, but call this function for bookkeeping.
-        setMapSquare(pawn.location, 'm');
-        pawn.movesList.add(plantMine);
-        minesList.add(pawn.location);
-        return plantMine;
-    }*/
 
     public int moveNorth(){
         Position newPosition = new Position(pawn.location.x, pawn.location.y - 1);
@@ -1855,32 +1680,6 @@ public class miv140130Agent extends Agent {
         pawn.movesList.add(moveWest);
         return moveWest;
     }// moveWest
-
-    /*public int preferInOrder(direction aDir, direction bDir) {
-        int task = doNothing;
-        if (checkValidMove(aDir)) {
-            task = moveInThatDirection(aDir);
-        } else if (checkValidMove(bDir)) {
-            task = moveInThatDirection(bDir);
-        }
-        return task;
-    }// preferInOrder
-
-    public int preferInOrder(direction aDir, direction bDir, direction cDir, direction fourthDirection){
-        int task = doNothing;
-        if(checkValidMove(aDir)){
-            task = moveInThatDirection(aDir);
-        }else if(checkValidMove(bDir)){
-            task = moveInThatDirection(bDir);
-        }else if(checkValidMove(cDir)){
-            task = moveInThatDirection(cDir);
-        }else if(checkValidMove(fourthDirection)){
-            task = moveInThatDirection(fourthDirection);
-        }else{
-            task = doNothing;
-        }
-        return task;
-    }*/
 
     public boolean checkValidMove(ArrayList<direction> directions){
         boolean checkAllDirections = true;
@@ -1919,9 +1718,10 @@ public class miv140130Agent extends Agent {
                 return obstacleSouth;
             case WEST:
                 return obstacleWest;
-        }
+        } // end switch
+
         return false;
-    }
+    } // end isObst
 
     int moveInThatDirection(direction assignedDirection){
         switch(assignedDirection){
@@ -1933,16 +1733,18 @@ public class miv140130Agent extends Agent {
                 return moveSouth();
             case WEST:
                 return moveWest();
-        }
+        } // end switch
+
         return doNothing;
-    }
+    } // end moveInThatDirection
 
     public void addImmediateObstacles(AgentEnvironment inEnvironment) {
 
-        //presence of surrounding obstList
+        //obstList obstacle nearby
         if(pawn.location.y == 0){
             obstacleNorth = inEnvironment.isObstacleNorthImmediate();
-        }else{
+        }
+        else{
             obstacleNorth = (inEnvironment.isObstacleNorthImmediate() || (gameMap[pawn.location.y - 1][pawn.location.x] == 'X'));
         }
 
